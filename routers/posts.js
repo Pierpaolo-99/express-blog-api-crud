@@ -1,33 +1,20 @@
 const express = require('express');
 const router = express.Router()
-const posts = require('../data/posts')
 
-router.get('/', (req, res) => {
-    res.send('Return all posts')
-})
+// import Controller
+const postsController = require('../controllers/postsController')
 
-router.get('/:slug', (req,res) => {
-    const postSlug = req.params.slug
-    res.send(`show the post with slug: ${postSlug}`)
-})
+router.get('/', postsController.index);
 
-router.post('/', (req,res) => {
-    res.send('create a new post')
-})
+router.get('/:slug', postsController.show);
 
-router.put('/:slug', (req,res) => {
-    const postSlug = req.params.slug
-    res.send(`update the post with slug: ${postSlug}`)
-})
+router.post('/', postsController.create);
 
-router.patch('/:slug', (req,res) => {
-    const postSlug = req.params.slug
-    res.send(`modify the post with slug: ${postSlug}`)
-})
+router.put('/:slug', postsController.update);
 
-router.delete('/:slug', (req,res) => {
-    const postSlug = req.params.slug
-    res.send(`delete the post with slug: ${postSlug}`)
-})
+router.patch('/:slug', postsController.modify);
 
+router.delete('/:slug', postsController.destroy);
+
+// export router
 module.exports = router
