@@ -46,8 +46,24 @@ function modify (req,res) {
 }
 
 function destroy (req,res) {
+    
     const postSlug = req.params.slug
-    res.send(`delete the post with slug: ${postSlug}`)
+
+    // find the pizza with the slug
+    const post = posts.find(post => post.slug === postSlug);
+
+    // handle 404 error
+    if (!post){
+        return res.status(404).json({
+            error: '404 not found',
+            message: 'post not found'
+        })
+    };
+
+    // remove the post
+    posts.slice(posts.indexOf(post), 1);
+    res.sendStatus(204);
+
 }
 
 module.exports = {
