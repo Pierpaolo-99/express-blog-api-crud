@@ -46,7 +46,7 @@ function modify (req,res) {
 }
 
 function destroy (req,res) {
-    
+
     const postSlug = req.params.slug
 
     // find the pizza with the slug
@@ -61,9 +61,10 @@ function destroy (req,res) {
     };
 
     // remove the post
-    posts.slice(posts.indexOf(post), 1);
+    posts.splice(posts.indexOf(post), 1);
     res.sendStatus(204);
 
+    console.log(posts);
 }
 
 module.exports = {
