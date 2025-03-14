@@ -2,12 +2,25 @@
 const posts = require('../data/posts')
 
 function index (req, res) {
-    res.send('Return all posts')
+    res.json(posts)
 }
 
 function show (req,res) {
     const postSlug = req.params.slug
-    res.send(`show the post with slug: ${postSlug}`)
+
+    // find the pizza with the slug
+    const post = posts.find(post => post.slug === postSlug)
+
+    // handle 404 error
+    if (!post){
+        return res.status(404).json({
+            error: '404 not found',
+            message: 'post not found'
+        })
+    }
+
+    // return the post
+    res.json(post)
 }
 
 function create (req,res) {
