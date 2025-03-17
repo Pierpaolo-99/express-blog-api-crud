@@ -78,7 +78,7 @@ function update (req,res) {
 
     // update the post
     post.title = req.body.title
-    post.slug = req.body.slug
+    post.slug = req.body.title.toLowerCase().replace(/ /g, '-')
     post.content = req.body.content
     post.image = req.body.image
     post.tags= req.body.tags
@@ -112,9 +112,7 @@ function modify (req,res) {
     // modify the post
     if (req.body.title){
         post.title = req.body.title
-    }
-    if (req.body.slug){
-        post.slug = req.body.slug
+        post.slug = req.body.title.toLowerCase().replace(/ /g, '-')
     }
     if (req.body.content){
         post.content = req.body.content
