@@ -54,13 +54,71 @@ function create (req,res) {
 }
 
 function update (req,res) {
+
     const postSlug = req.params.slug
-    res.send(`update the post with slug: ${postSlug}`)
+
+    const post = posts.find(post => post.slug === postSlug)
+
+    if (!post){
+
+        res.status(404)
+
+        return res.json({
+            error: "Not Found",
+            message: "Pizza non trovata"
+        })
+    }
+
+    post.title = req.body.title
+    post.slug = req.body.slug
+    post.content = req.body.content
+    post.image = req.body.image
+    post.tags= req.body.tags
+    
+    console.log(posts);
+    
+    res.json(post)
+    //res.send(`update the post with slug: ${postSlug}`)
 }
 
 function modify (req,res) {
+
     const postSlug = req.params.slug
-    res.send(`modify the post with slug: ${postSlug}`)
+
+    const post = posts.find(post => post.slug === postSlug)
+
+    if (!post){
+
+        res.status(404)
+
+        return res.json({
+            error: "Not Found",
+            message: "Pizza non trovata"
+        })
+    }
+
+    if (req.body.title){
+        post.title = req.body.title
+    }
+    if (req.body.slug){
+        post.slug = req.body.slug
+    }
+    if (req.body.content){
+        post.content = req.body.content
+    }
+    if (req.body.image){
+        post.image = req.body.image
+    }
+    if (req.body.tags){
+        post.tags = req.body.tags
+    }
+    
+    console.log(posts);
+    
+    res.json(post)
+
+
+    //res.send(`modify the post with slug: ${postSlug}`)
 }
 
 function destroy (req,res) {
