@@ -32,7 +32,25 @@ function show (req,res) {
 }
 
 function create (req,res) {
-    res.send('create a new post')
+
+    const newSlug = req.body.slug
+
+    const newPost = {
+        title: req.body.title,
+        slug: newSlug,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    }
+
+    posts.push(newPost)
+
+    console.log(req.body);
+    console.log(posts);
+    
+    res.status(201)
+    res.json(newPost)
+    //res.send('create a new post')
 }
 
 function update (req,res) {
