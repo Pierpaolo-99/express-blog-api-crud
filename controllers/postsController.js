@@ -32,9 +32,11 @@ function show (req,res) {
 }
 
 function create (req,res) {
+    
+    // create a new slug
+    const newSlug = req.body.title.toLowerCase().replace(/ /g, '-')
 
-    const newSlug = req.body.slug
-
+    // create a new post object
     const newPost = {
         title: req.body.title,
         slug: newSlug,
@@ -43,13 +45,16 @@ function create (req,res) {
         tags: req.body.tags
     }
 
+    // add the new post to the posts array
     posts.push(newPost)
 
     console.log(req.body);
     console.log(posts);
     
+    // return the new post
     res.status(201)
     res.json(newPost)
+
     //res.send('create a new post')
 }
 
@@ -57,8 +62,10 @@ function update (req,res) {
 
     const postSlug = req.params.slug
 
+    // find the post with the slug
     const post = posts.find(post => post.slug === postSlug)
 
+    // handle 404 error
     if (!post){
 
         res.status(404)
@@ -69,6 +76,7 @@ function update (req,res) {
         })
     }
 
+    // update the post
     post.title = req.body.title
     post.slug = req.body.slug
     post.content = req.body.content
@@ -77,7 +85,9 @@ function update (req,res) {
     
     console.log(posts);
     
+    // return the updated post
     res.json(post)
+
     //res.send(`update the post with slug: ${postSlug}`)
 }
 
@@ -85,8 +95,10 @@ function modify (req,res) {
 
     const postSlug = req.params.slug
 
+    // find the post with the slug
     const post = posts.find(post => post.slug === postSlug)
 
+    // handle 404 error
     if (!post){
 
         res.status(404)
@@ -97,6 +109,7 @@ function modify (req,res) {
         })
     }
 
+    // modify the post
     if (req.body.title){
         post.title = req.body.title
     }
@@ -115,8 +128,8 @@ function modify (req,res) {
     
     console.log(posts);
     
+    // return the modified post
     res.json(post)
-
 
     //res.send(`modify the post with slug: ${postSlug}`)
 }
