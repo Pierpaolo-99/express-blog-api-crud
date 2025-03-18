@@ -7,6 +7,7 @@ const postRoutes = require('./routers/posts')
 
 // import middlewares error
 const serverError = require('./middlewares/serverError')
+const error_404 = require('./middlewares/error_404')
 
 // Server Listening
 app.listen(port, () => {
@@ -28,4 +29,5 @@ app.use(express.json())
 app.use('/api/v1/posts', postRoutes);
 
 // Middlewares Error
-app.use(serverError)
+app.use(serverError);
+app.use(error_404);
