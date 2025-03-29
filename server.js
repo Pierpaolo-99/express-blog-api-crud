@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 3006;
+const cors = require('cors')
 
 // import routes
 const postRoutes = require('./routers/posts')
@@ -15,12 +16,17 @@ app.listen(port, () => {
 });
 
 // Home Route
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
 
     //throw new Error('Server Error')
 
     res.send('Welcome to Home Server')
 })
+
+// cors Middleware
+app.use(cors({
+    origin: 'http://localhost:5173'
+}))
 
 // JSON Middleware
 app.use(express.json())
