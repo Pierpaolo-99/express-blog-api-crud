@@ -31,6 +31,9 @@ app.use(cors({
 // JSON Middleware
 app.use(express.json())
 
+// Static Assets Middleware
+app.use(express.static('public'));
+
 // Middleware
 app.use('/api/v1/posts', postRoutes);
 
